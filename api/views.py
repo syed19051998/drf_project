@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from employees.models import Employee
 from django.http import Http404
+from blogs.models import Blog,Comment
+from blogs.serializers import BlogSerializer, CommentSerializer
 
 #Mixins
 from rest_framework import mixins, generics, viewsets
@@ -146,8 +148,8 @@ class EmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
 
 """
 
-##### VIEWSET ######
-
+##### VIEWSET ######   (i) - Viewsets.ViewSet
+"""
 class EmployeeViewset(viewsets.ViewSet):
     def list(self, request):
         queryset = Employee.objects.all()
@@ -177,3 +179,21 @@ class EmployeeViewset(viewsets.ViewSet):
         employee = get_object_or_404(Employee, pk=pk)
         employee.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+    ##### VIEWSET ######   (ii) - Viewsets.ModelViewSet
+
+class EmployeeViewset(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+"""
+
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
