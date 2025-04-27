@@ -10,6 +10,8 @@ from employees.models import Employee
 from django.http import Http404
 from blogs.models import Blog,Comment
 from blogs.serializers import BlogSerializer, CommentSerializer
+from .paginations import CustomPagination
+from .filters import EmployeeFilter
 
 #Mixins
 from rest_framework import mixins, generics, viewsets
@@ -181,19 +183,31 @@ class EmployeeViewset(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
+"""
     ##### VIEWSET ######   (ii) - Viewsets.ModelViewSet
+# Model.Viewset will handle all the CRUD operation with or without primary keys and it handles URLS too - Very less code and easy to use
 
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    pagination_class = CustomPagination  # here custom pagination is called 
+    # filterset_fileds = ['designation']  # This is for Global filter
+    filterset_class = EmployeeFilter   # This is for custom filter
 
-"""
+
 
 class BlogsView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
 class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
