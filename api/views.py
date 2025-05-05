@@ -138,6 +138,9 @@ class EmployeeDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.
      
 """
 
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 ### GENERICS ###
 """
 class Employees(generics.ListCreateAPIView):
@@ -150,6 +153,8 @@ class EmployeeDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'pk'
 
 """
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ##### VIEWSET ######   (i) - Viewsets.ViewSet
 """

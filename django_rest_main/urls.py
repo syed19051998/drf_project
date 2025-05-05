@@ -25,4 +25,6 @@ urlpatterns = [
 
     # API EndPoints
     path('api/v1/', include('api.urls')),
+
+    # Auth routes
 ]
